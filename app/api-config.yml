@@ -1,0 +1,70 @@
+swagger: '2.0'
+info:
+  title: User Management API
+  description: API to manage user operations
+  version: 1.0.0
+host: "" # api gateway url (managed services)
+x-google-backend:
+  address: "" # backend address (cloud function url)
+basePath: "/"
+schemes:
+  - https
+  - http
+produces:
+  - application/json
+paths:
+  /users:
+    get:
+      summary: Get user details
+      operationId: getUser
+      responses:
+        '200':
+          description: A user object.
+        '404':
+          description: Not found
+        '405':
+          description: PLEASE WORK!
+    post:
+      summary: Create a new user
+      consumes:
+        - application/json
+      operationId: createUser
+      responses:
+        '201':
+          description: User created.
+  /users/{id}:
+    put:
+      summary: Update an existing user
+      consumes:
+        - application/json
+      operationId: updateUser
+      parameters:
+        - name: id
+          in: path
+          required: true
+          type: string
+      responses:
+        '200':
+          description: User updated.
+        '404':
+          description: Not found
+    delete:
+      summary: Delete a user
+      operationId: deleteUser
+      parameters:
+        - name: id
+          in: path
+          required: true
+          type: string
+      responses:
+        '200':
+          description: User deleted.
+        '404':
+          description: Not found
+securityDefinitions:
+  api_key:
+    type: apiKey
+    in: query
+    name: Key
+security:
+  - api_key: []
