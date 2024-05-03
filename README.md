@@ -15,12 +15,15 @@
     ```
 
 2) steps: 
+    * specify project_id in variables.tf
     * enable all APIs needed for the project, and create a database on CloudSQL service:
     ```
     $ cd terraform && terraform init
     $ terraform apply -target=module.enable_apis -target=module.sql
     ```
-    * add the INSTANCE_CONNECTION_NAME to the API script
+
+    * add the INSTANCE_CONNECTION_NAME to the backend API script
+
     *  create a table from cloudSQL
     ```
     CREATE TABLE users (
@@ -28,9 +31,20 @@
         username VARCHAR(50) UNIQUE NOT NULL
     );
     ```
+
     * create cloud function, a cloud function service account, <br>
     allow service account to invoke the function and to access cloud sql:
 
     ```
     $ terraform apply -target=module.cloud_function
-    ``` 
+    ```
+
+    * add user to the database:
+    ```
+    curl -X POST <function_trigger_url> -H "Content-Type: application/json" -d '{"username":"Sara"}'
+    ```
+
+    * specify the host (managed service) and the backend (function url) in the api-config.yml
+    ```
+    $ terraform apply -target=module.gateway
+    
