@@ -16,6 +16,7 @@
 
 2) steps: 
     * specify project_id in variables.tf
+
     * enable all APIs needed for the project, and create a database on CloudSQL service:
     ```
     $ cd terraform && terraform init
@@ -44,7 +45,9 @@
     curl -X POST <function_trigger_url> -H "Content-Type: application/json" -d '{"username":"Sara"}'
     ```
 
-    * specify the host (managed service) and the backend (function url) in the api-config.yml
+    * specify the host (managed service) and the backend (function url) in the api-config.yml.
+
+    * create the gateway
     ```
     $ terraform apply -target=module.gateway
     
