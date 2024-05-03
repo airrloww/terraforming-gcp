@@ -36,7 +36,6 @@ resource "google_service_account" "invoker_service_account" {
   display_name = "Cloud Function Invoker"
   project      = var.project_id
 }
-
 # IAM entry for the service account to invoke the function
 resource "google_cloudfunctions_function_iam_member" "invoker" {
   cloud_function = google_cloudfunctions_function.function.name
