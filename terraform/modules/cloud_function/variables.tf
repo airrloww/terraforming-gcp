@@ -43,7 +43,6 @@ variable "https_trigger_security_level" {
   default     = "SECURE_OPTIONAL"
 }
 
-
 variable "project_id" {
   type = string
 }
