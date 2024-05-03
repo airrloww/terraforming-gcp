@@ -7,13 +7,13 @@ resource "google_api_gateway_api" "api_gw" {
 
 # API config
 resource "google_api_gateway_api_config" "api_cfg" {
-  provider             = google-beta
-  api                  = google_api_gateway_api.api_gw.api_id
-  display_name         = "${google_api_gateway_api.api_gw.display_name}-conf.yml" # spec file name
+  provider     = google-beta
+  api          = google_api_gateway_api.api_gw.api_id
+  display_name = "${google_api_gateway_api.api_gw.display_name}-conf.yml" # spec file name
 
   openapi_documents {
     document {
-      path     = "../app/api-config.yaml" # api spec file
+      path     = "../app/api-config.yaml"            # api spec file
       contents = filebase64("../app/api-config.yml") # api spec file
     }
   }
@@ -30,9 +30,9 @@ resource "google_api_gateway_api_config" "api_cfg" {
 
 # Gateway details
 resource "google_api_gateway_gateway" "gw" {
-  provider = google-beta
-  api_config   = google_api_gateway_api_config.api_cfg.id
-  gateway_id   = "${var.project_id}-gateway"
-  region   = var.region
-  depends_on   = [google_api_gateway_api_config.api_cfg]
+  provider   = google-beta
+  api_config = google_api_gateway_api_config.api_cfg.id
+  gateway_id = "${var.project_id}-gateway"
+  region     = var.region
+  depends_on = [google_api_gateway_api_config.api_cfg]
 }

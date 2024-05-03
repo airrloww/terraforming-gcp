@@ -9,6 +9,6 @@ variable "invoker_service_account_id" {
 variable "region" {
   description = "gateway region"
   type        = string
-  default = "europe-west1"
+  default     = "europe-west1"
 }
 
