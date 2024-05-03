@@ -12,3 +12,9 @@ provider "google" {
   region      = var.region
   credentials = file("terraform-admin-key.json")
 }
+
+provider "google-beta" {
+  project     = var.project_id
+  region      = var.region
+  credentials = file("terraform-admin-key.json")
+}

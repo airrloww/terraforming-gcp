@@ -17,3 +17,10 @@ module "cloud_function" {
   region     = var.region
   depends_on = [module.enable_apis, module.sql_database]
 }
+
+# Module to create API gateway
+module "gateway" {
+  source = "./modules/gateway"
+  project_id = var.project_id
+  invoker_service_account_id = module.cloud_function.invoker_service_account_id
+}
