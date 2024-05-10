@@ -20,13 +20,13 @@
     * enable all APIs needed for the project, and create a database on CloudSQL service:
     ```
     $ cd terraform && terraform init
-    $ terraform apply -target=module.enable_apis -target=module.sql
+    $ terraform apply -target=module.enable_apis -target=module.sql_database
     ```
 
     * add the INSTANCE_CONNECTION_NAME to the backend API script
 
     *  create a table from cloudSQL
-    ```
+    ```sql
     CREATE TABLE users (
         id SERIAL PRIMARY KEY,
         username VARCHAR(50) UNIQUE NOT NULL
@@ -45,9 +45,20 @@
     curl -X POST <function_trigger_url> -H "Content-Type: application/json" -d '{"username":"Sara"}'
     ```
 
-    * specify the host (managed service) and the backend (function url) in the api-config.yml.
+    * specify the host (managed service) and the backend (function trigger url) in the api-config.yml.
 
     * create the gateway
     ```
     $ terraform apply -target=module.gateway
-    
+    ```
+
+    * enable the created api from cloud console, generate API key, and restrict it to the API
+
+    * test
+    ```
+    GET:      
+     curl -G "<gateway_url>/users" -d "id=1" -d "key=<api_key>"
+
+    POST:
+     curl -X POST <gateway_url>/users?key=<api_key>" -H "Content-Type: application/json" -d '{"username": "ahmed"}'
+    ```
