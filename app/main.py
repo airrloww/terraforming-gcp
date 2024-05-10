@@ -9,10 +9,10 @@ import pg8000
 # Configure basic logger
 logging.basicConfig(level=logging.DEBUG)
 def connect_with_connector() -> sqlalchemy.engine.base.Engine:
-    instance_connection_name = os.getenv("INSTANCE_CONNECTION_NAME", "") # connection name
-    db_user = os.getenv("DB_USER", "") # DB username
-    db_pass = os.getenv("DB_PASS", "") # DB password
-    db_name = os.getenv("DB_NAME", "") # DB name
+    instance_connection_name = os.getenv("INSTANCE_CONNECTION_NAME", "") # SQL connection
+    db_user = os.getenv("DB_USER", "postgres")
+    db_pass = os.getenv("DB_PASS", "pass")
+    db_name = os.getenv("DB_NAME", "postgres")
 
     def getconn() -> pg8000.dbapi.Connection:
         try:

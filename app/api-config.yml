@@ -3,9 +3,9 @@ info:
   title: User Management API
   description: API to manage user operations
   version: 1.0.0
-host: "" # api gateway url (managed services)
+host: "" # gateway [managed services]
 x-google-backend:
-  address: "" # backend address (cloud function url)
+  address: "" # backend [cloud function]
 basePath: "/"
 schemes:
   - https
@@ -15,23 +15,38 @@ produces:
 paths:
   /users:
     get:
-      summary: Get user details
+      summary: Retrieve a user by ID
       operationId: getUser
+      parameters:
+        - name: id
+          in: query
+          required: true
+          type: string
       responses:
         '200':
-          description: A user object.
+          description: User retrieved successfully.
         '404':
-          description: Not found
-        '405':
-          description: PLEASE WORK!
+          description: User not found.
     post:
       summary: Create a new user
       consumes:
         - application/json
       operationId: createUser
+      parameters:
+        - in: body
+          name: user
+          description: User to add
+          required: true
+          schema:
+            type: object
+            properties:
+              username:
+                type: string
       responses:
         '201':
           description: User created.
+        '400':
+          description: Invalid input.
   /users/{id}:
     put:
       summary: Update an existing user
@@ -43,11 +58,20 @@ paths:
           in: path
           required: true
           type: string
+        - in: body
+          name: user
+          description: User information to update
+          required: true
+          schema:
+            type: object
+            properties:
+              username:
+                type: string
       responses:
         '200':
-          description: User updated.
+          description: User updated successfully.
         '404':
-          description: Not found
+          description: User not found.
     delete:
       summary: Delete a user
       operationId: deleteUser
@@ -58,9 +82,9 @@ paths:
           type: string
       responses:
         '200':
-          description: User deleted.
+          description: User deleted successfully.
         '404':
-          description: Not found
+          description: User not found.
 securityDefinitions:
   api_key:
     type: apiKey
